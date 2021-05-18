@@ -25,7 +25,8 @@ $ pipenv install -d
 ### Configuration
 
 - Create postgesql db / schema in postgresql to start with via command `create database form_fueled;`
-- Please check the DB connection and credentials in `app/app/settings.py` `DATABASES` dict
+- Create a `.env` file from `.env.example` under `/app` and set appropriate environment variables before running the project
+- Please check the DB connection and credentials by adding it in `.env` created in above step
 
 
 ### Running app

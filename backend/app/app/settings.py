@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-h(jtki6%9adrdwpucuga52xck@-^w2lb^-d##pq9lasl%wy#77'
+SECRET_KEY = os.environ['SECRET_KEY'] or 'SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -94,9 +94,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'form_fueled',
-        'USER': 'cy_vil_admin',
-        'PASSWORD': '27c78e2b-eb47-4556-88a1-1398d8d7d306',
-        'HOST': 'localhost',
+        'USER': os.environ['DB_USER'] or 'user',
+        'PASSWORD': os.environ['DB_PASSWORD'] or 'password',
+        'HOST': os.environ['DB_HOST'] or 'localhost',
         'PORT': '5432',
     }
 }
