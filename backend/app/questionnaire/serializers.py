@@ -1,8 +1,9 @@
+from django.db import transaction
 from rest_framework import serializers
-from rest_framework.exceptions import APIException
+from rest_framework.exceptions import ValidationError
 
 from .enums import QuestionTypesEnum
-from .models import Question, Questionnaire
+from .models import QResponse, Question, Questionnaire, QuestionnaireRespondent
 
 
 class QuestionOptionCreateSerializer(serializers.Serializer):
@@ -71,7 +72,7 @@ class QuestionnaireCreateSerializer(serializers.Serializer):
     def create(self, validated_data):
         """Create a new questionnaire with questions
         """
-        try:
+        with transaction.atomic():
             questionnaire_obj = Questionnaire.objects.create(
                 name=validated_data.get('name'),
                 description=validated_data.get('description'),
@@ -91,16 +92,13 @@ class QuestionnaireCreateSerializer(serializers.Serializer):
             for i, question in enumerate(question_objects):
                 validated_data['questions'][i]['id'] = question.id
             validated_data['id'] = questionnaire_obj.id
-        except Exception:
-            raise APIException()
 
         return validated_data
 
     def update(self, instance, validated_data):
         """Partial updates existing questionnaire with questions
         """
-        try:
-
+        with transaction.atomic():
             instance.name = validated_data.get('name')
             instance.description = validated_data.get('description')
             instance.save()
@@ -133,10 +131,6 @@ class QuestionnaireCreateSerializer(serializers.Serializer):
                     # remove fake data
                     for q in req_questions_invalid_index:
                         del request_questions[q]
-
-        except Exception:
-            raise APIException()
-
         return validated_data
 
 
@@ -155,3 +149,95 @@ class QuestionnaireDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Questionnaire
         fields = ['id', 'name', 'description', 'created_at', 'updated_at', 'questions']
+
+
+class QuestionResponseSerializer(serializers.Serializer):
+    """Serializer for saving question response
+    """
+    id = serializers.IntegerField()
+    options = serializers.ListField(
+        child=serializers.CharField(),
+        min_length=1,
+        max_length=5
+    )
+
+
+class QuestionnaireResponseSerializer(serializers.Serializer):
+    """Serializer for saving questionnaire response
+    """
+    respondent_email = serializers.EmailField()
+    questions = QuestionResponseSerializer(many=True)
+
+    def create(self, validated_data):
+        """Create a new questionnaire with questions
+            All questions are mandatory
+        """
+        questionnaire_obj = self.context.get('questionnaire_obj')
+        respondent_email = validated_data['respondent_email']
+        # check if response is already received
+        if QuestionnaireRespondent.objects.filter(
+                questionnaire_id=questionnaire_obj.id, respondent_email=respondent_email).exists():
+            raise ValidationError(detail='Response already received.')
+
+        valid_question_ids = {q.id for q in questionnaire_obj.question_set.all()}
+        with transaction.atomic():
+            questionnaire_respondent_obj = QuestionnaireRespondent.objects.create(
+                questionnaire=questionnaire_obj,
+                respondent_email=respondent_email
+            )
+            qresponse_obj_list = []
+            for question in validated_data.get('questions'):
+                if question['id'] in valid_question_ids:
+                    qresponse_obj_list.append(
+                        QResponse(
+                            questionnaire_respondent=questionnaire_respondent_obj,
+                            question_id=question['id'],
+                            answers=question['options']
+                        )
+                    )
+                    valid_question_ids.remove(question['id'])
+
+            if len(valid_question_ids) > 0:
+                raise ValidationError(
+                    detail='Please add a response to all the questions. All questions are mandatory')
+            QResponse.objects.bulk_create(qresponse_obj_list)
+        return questionnaire_obj
+
+
+class QResponseSerializer(serializers.ModelSerializer):
+    text = serializers.SerializerMethodField()
+    qtype = serializers.SerializerMethodField()
+    options = serializers.SerializerMethodField()
+
+    def get_text(self, obj):
+        return obj.question.question_text
+
+    def get_qtype(self, obj):
+        return obj.question.question_type
+
+    def get_options(self, obj):
+        return obj.question.options
+
+    class Meta:
+        model = QResponse
+        fields = ['text', 'options', 'qtype', 'answers']
+
+
+class QuestionnaireAnswersSerializer(serializers.ModelSerializer):
+    """ Serializer to fetch a responses of a Questionnaire
+    """
+    questions = QResponseSerializer(many=True, source='respondent')
+
+    class Meta:
+        model = QuestionnaireRespondent
+        fields = ['respondent_email', 'created_at', 'questions']
+
+
+class QuestionnaireResponsesSerializer(serializers.ModelSerializer):
+    """ Serializer to fetch all the responses of a Questionnaire
+    """
+    responses = QuestionnaireAnswersSerializer(many=True)
+
+    class Meta:
+        model = Questionnaire
+        fields = ['id', 'name', 'description', 'updated_at', 'created_at', 'responses']

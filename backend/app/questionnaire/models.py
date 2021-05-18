@@ -44,15 +44,32 @@ class Question(models.Model):
         return f'{self.questionnaire.name} - {self.question_text}'
 
 
+class QuestionnaireRespondent(models.Model):
+    """Questionnaire respondent signifies an entry per response to a questionnaire
+    """
+    questionnaire = models.ForeignKey(Questionnaire, related_name='responses', on_delete=models.CASCADE)
+    respondent_email = models.EmailField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['questionnaire', 'respondent_email']  # unique response per email to a questionnaire
+
+    def __str__(self):
+        return f'{self.questionnaire} - {self.respondent_email}'
+
+
 class QResponse(models.Model):
     """Questions' responses for a Questionnaire
     """
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    respondent_email = models.EmailField(max_length=255)
+    question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE)
+    questionnaire_respondent = models.ForeignKey(
+        QuestionnaireRespondent,
+        related_name='respondent',
+        on_delete=models.CASCADE)
     answers = ArrayField(  # any response will be saved here.
         models.TextField()
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.question} - {self.respondent_email}'
+        return f'{self.question} - {self.questionnaire_respondent}'

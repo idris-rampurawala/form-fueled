@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from datetime import timedelta
 from pathlib import Path
 
@@ -148,8 +149,7 @@ AUTH_USER_MODEL = 'user.User'
 
 # Pagination global
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 100
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'
 }
 
 # JWT Auth Token Settings
@@ -160,3 +160,26 @@ SIMPLE_JWT = {
 }
 
 UI_BASE_URL = 'http://localhost:4200'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'app': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
