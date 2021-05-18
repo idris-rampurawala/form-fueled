@@ -13,6 +13,7 @@
 
 - Install `pipenv` a global python project `pip install pipenv`
 - Create a `virtual environment` for this project
+- Check out [pyenv](https://realpython.com/intro-to-pyenv/) to install multiple python version
 ```shell
 # all python packages are installed at the root directory i.e. under `backend`
 $ cd form-fueled/backend
