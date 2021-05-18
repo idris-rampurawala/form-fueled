@@ -51,3 +51,10 @@ $ cd app
 # run migration via below command so the db schema is created
 $ python manage.py test
 ```
+### Inserting data
+Make sure the app is running before performing following
+- Register a user by visitng the link `http://localhost:8000/api/users/register/` in the browser
+- After you have created the user, we need to generate the Token (to call authenticated APIs) via link `http://localhost:8000/api/users/token/`
+### Calling APIs
+- via Postman
+  - Please import the postman collection to be able to run all APIs, can be located at root under `backend` `Form Fueled.postman_collection.json`
