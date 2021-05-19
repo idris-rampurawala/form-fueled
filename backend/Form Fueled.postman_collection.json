@@ -553,7 +553,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8000/api/questionnaires/?limit=10&offset=0",
+							"raw": "http://localhost:8000/api/questionnaires/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -566,12 +566,14 @@
 							],
 							"query": [
 								{
-									"key": "limit",
-									"value": "10"
+									"key": "c",
+									"value": "cD0yMDIxLTA1LTE4KzEzJTNBMDIlM0E1OS4xMTgwNzQlMkIwMCUzQTAw",
+									"disabled": true
 								},
 								{
-									"key": "offset",
-									"value": "0"
+									"key": "page_size",
+									"value": "1",
+									"disabled": true
 								}
 							]
 						}
@@ -644,7 +646,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"detail\": [\n        {\n            \"id\": \"64d18146-1987-4e58-8708-31931eaad55a\",\n            \"name\": \"Untitled Question\",\n            \"description\": \"description\",\n            \"created_at\": \"2021-05-17T12:54:28.565330Z\",\n            \"updated_at\": \"2021-05-17T14:09:01.687967Z\",\n            \"questions\": [\n                {\n                    \"id\": 3,\n                    \"text\": \"question text 1\",\n                    \"qtype\": \"TEXT\",\n                    \"options\": [],\n                    \"created_at\": \"2021-05-17T12:54:28.573580Z\",\n                    \"updated_at\": \"2021-05-17T12:54:28.573618Z\"\n                },\n                {\n                    \"id\": 4,\n                    \"text\": \"question text 2\",\n                    \"qtype\": \"MCSS\",\n                    \"options\": [\n                        {\n                            \"text\": \"option 1 text\",\n                            \"sequence\": 1\n                        },\n                        {\n                            \"text\": \"option 2 text\",\n                            \"sequence\": 2\n                        }\n                    ],\n                    \"created_at\": \"2021-05-17T12:54:28.573808Z\",\n                    \"updated_at\": \"2021-05-17T12:54:28.573843Z\"\n                },\n                {\n                    \"id\": 5,\n                    \"text\": \"question text 2\",\n                    \"qtype\": \"MCSS\",\n                    \"options\": [\n                        {\n                            \"text\": \"option 1.2 text\",\n                            \"sequence\": 1\n                        },\n                        {\n                            \"text\": \"option 2.2 text\",\n                            \"sequence\": 2\n                        }\n                    ],\n                    \"created_at\": \"2021-05-17T12:54:28.573970Z\",\n                    \"updated_at\": \"2021-05-17T12:54:28.574001Z\"\n                }\n            ]\n        },\n        {\n            \"id\": \"75d7e68d-7558-4b75-9a7b-4ff85f78293c\",\n            \"name\": \"Q 2\",\n            \"description\": \"description\",\n            \"created_at\": \"2021-05-17T14:41:14.762638Z\",\n            \"updated_at\": \"2021-05-17T14:41:14.762742Z\",\n            \"questions\": [\n                {\n                    \"id\": 6,\n                    \"text\": \"question text 2\",\n                    \"qtype\": \"MCSS\",\n                    \"options\": [\n                        {\n                            \"text\": \"option 1 text\",\n                            \"sequence\": 1\n                        },\n                        {\n                            \"text\": \"option 2 text\",\n                            \"sequence\": 2\n                        }\n                    ],\n                    \"created_at\": \"2021-05-17T14:41:14.770659Z\",\n                    \"updated_at\": \"2021-05-17T14:41:14.770702Z\"\n                },\n                {\n                    \"id\": 7,\n                    \"text\": \"question text 2\",\n                    \"qtype\": \"MCSS\",\n                    \"options\": [\n                        {\n                            \"text\": \"option 1.1 text\",\n                            \"sequence\": 1\n                        },\n                        {\n                            \"text\": \"option 2.1 text\",\n                            \"sequence\": 2\n                        }\n                    ],\n                    \"created_at\": \"2021-05-17T14:41:14.770832Z\",\n                    \"updated_at\": \"2021-05-17T14:41:14.770864Z\"\n                }\n            ]\n        }\n    ],\n    \"limit\": 10,\n    \"offset\": 0,\n    \"total\": 2\n}"
+							"body": "{\n    \"next\": \"http://localhost:8000/api/questionnaires/?c=cD0yMDIxLTA1LTE3KzE1JTNBMTMlM0EyMC4yMjcwMzklMkIwMCUzQTAw&page_size=1\",\n    \"previous\": \"http://localhost:8000/api/questionnaires/?c=cj0xJnA9MjAyMS0wNS0xNysxNSUzQTEzJTNBMjAuMjI3MDM5JTJCMDAlM0EwMA%3D%3D&page_size=1\",\n    \"next_c\": \"cD0yMDIxLTA1LTE3KzE1JTNBMTMlM0EyMC4yMjcwMzklMkIwMCUzQTAw\",\n    \"previous_c\": \"cj0xJnA9MjAyMS0wNS0xNysxNSUzQTEzJTNBMjAuMjI3MDM5JTJCMDAlM0EwMA==\",\n    \"detail\": [\n        {\n            \"id\": \"64d18146-1987-4e58-8708-31931eaad55a\",\n            \"name\": \"Untitled Question\",\n            \"description\": \"description\",\n            \"created_at\": \"2021-05-17T12:54:28.565330Z\",\n            \"updated_at\": \"2021-05-17T14:09:01.687967Z\",\n            \"questions\": [\n                {\n                    \"id\": 3,\n                    \"text\": \"question text 1\",\n                    \"qtype\": \"TEXT\",\n                    \"options\": [],\n                    \"created_at\": \"2021-05-17T12:54:28.573580Z\",\n                    \"updated_at\": \"2021-05-17T12:54:28.573618Z\"\n                },\n                {\n                    \"id\": 4,\n                    \"text\": \"question text 2\",\n                    \"qtype\": \"MCSS\",\n                    \"options\": [\n                        {\n                            \"text\": \"option 1 text\",\n                            \"sequence\": 1\n                        },\n                        {\n                            \"text\": \"option 2 text\",\n                            \"sequence\": 2\n                        }\n                    ],\n                    \"created_at\": \"2021-05-17T12:54:28.573808Z\",\n                    \"updated_at\": \"2021-05-17T12:54:28.573843Z\"\n                },\n                {\n                    \"id\": 5,\n                    \"text\": \"question text 2\",\n                    \"qtype\": \"MCSS\",\n                    \"options\": [\n                        {\n                            \"text\": \"option 1.2 text\",\n                            \"sequence\": 1\n                        },\n                        {\n                            \"text\": \"option 2.2 text\",\n                            \"sequence\": 2\n                        }\n                    ],\n                    \"created_at\": \"2021-05-17T12:54:28.573970Z\",\n                    \"updated_at\": \"2021-05-17T12:54:28.574001Z\"\n                }\n            ]\n        },\n        {\n            \"id\": \"75d7e68d-7558-4b75-9a7b-4ff85f78293c\",\n            \"name\": \"Q 2\",\n            \"description\": \"description\",\n            \"created_at\": \"2021-05-17T14:41:14.762638Z\",\n            \"updated_at\": \"2021-05-17T14:41:14.762742Z\",\n            \"questions\": [\n                {\n                    \"id\": 6,\n                    \"text\": \"question text 2\",\n                    \"qtype\": \"MCSS\",\n                    \"options\": [\n                        {\n                            \"text\": \"option 1 text\",\n                            \"sequence\": 1\n                        },\n                        {\n                            \"text\": \"option 2 text\",\n                            \"sequence\": 2\n                        }\n                    ],\n                    \"created_at\": \"2021-05-17T14:41:14.770659Z\",\n                    \"updated_at\": \"2021-05-17T14:41:14.770702Z\"\n                },\n                {\n                    \"id\": 7,\n                    \"text\": \"question text 2\",\n                    \"qtype\": \"MCSS\",\n                    \"options\": [\n                        {\n                            \"text\": \"option 1.1 text\",\n                            \"sequence\": 1\n                        },\n                        {\n                            \"text\": \"option 2.1 text\",\n                            \"sequence\": 2\n                        }\n                    ],\n                    \"created_at\": \"2021-05-17T14:41:14.770832Z\",\n                    \"updated_at\": \"2021-05-17T14:41:14.770864Z\"\n                }\n            ]\n        }\n    ]\n}"
 						}
 					]
 				},
@@ -860,7 +862,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"detail\": {}\n}"
+							"body": "{\n    \"detail\": \"Success deleted the resource.\"\n}"
 						}
 					]
 				},
@@ -1056,7 +1058,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    \"Please add a response to all the questions. All questions are mandatory\"\n]"
+							"body": "{\n    \"detail\": \"Please add a response to all the questions. All questions are mandatory.\"\n}"
 						},
 						{
 							"name": "Bad Request - Response already received",
@@ -1130,7 +1132,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    \"Response already received.\"\n]"
+							"body": "{\n    \"detail\": \"Response already received.\"\n}"
 						},
 						{
 							"name": "Success",
@@ -1595,8 +1597,7 @@
 							{
 								"key": "Authorization",
 								"value": "Bearer {{token}}",
-								"type": "text",
-								"disabled": true
+								"type": "text"
 							}
 						],
 						"url": {
@@ -1683,7 +1684,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"email\": \"test1@formfueled.com\",\n    \"name\": \"Test 1\"\n}"
+							"body": "{\n    \"detail\": {\n        \"email\": \"test1@formfueled.com\",\n        \"name\": \"Test 1\"\n    }\n}"
 						},
 						{
 							"name": "Unauthorize",
