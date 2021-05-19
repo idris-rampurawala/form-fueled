@@ -31,4 +31,4 @@ class UserDetail(APIView):
 
     def get(self, request, format=None):
         serializer = UserSerializer(request.user)
-        return Response(serializer.data, status=HTTP_200_OK)
+        return Response({'detail': serializer.data}, status=HTTP_200_OK)

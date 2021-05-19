@@ -1,6 +1,7 @@
 from django.db import transaction
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import APIException
+from rest_framework.status import HTTP_400_BAD_REQUEST
 
 from .enums import QuestionTypesEnum
 from .models import QResponse, Question, Questionnaire, QuestionnaireRespondent
@@ -177,7 +178,7 @@ class QuestionnaireResponseSerializer(serializers.Serializer):
         # check if response is already received
         if QuestionnaireRespondent.objects.filter(
                 questionnaire_id=questionnaire_obj.id, respondent_email=respondent_email).exists():
-            raise ValidationError(detail='Response already received.')
+            raise APIException(detail='Response already received.', code=HTTP_400_BAD_REQUEST)
 
         valid_question_ids = {q.id for q in questionnaire_obj.question_set.all()}
         with transaction.atomic():
@@ -198,8 +199,9 @@ class QuestionnaireResponseSerializer(serializers.Serializer):
                     valid_question_ids.remove(question['id'])
 
             if len(valid_question_ids) > 0:
-                raise ValidationError(
-                    detail='Please add a response to all the questions. All questions are mandatory')
+                raise APIException(
+                    detail='Please add a response to all the questions. All questions are mandatory.',
+                    code=HTTP_400_BAD_REQUEST)
             QResponse.objects.bulk_create(qresponse_obj_list)
         return questionnaire_obj
 

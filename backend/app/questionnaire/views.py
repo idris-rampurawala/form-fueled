@@ -1,7 +1,7 @@
+from app.pagination import DefaultCursorPagination
 from django.conf import settings
 from django.db.models import Prefetch
 from rest_framework.exceptions import NotFound
-from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED
@@ -27,15 +27,10 @@ class QuestionnaireApi(APIView):
         """ API to fetch a questionnaire with questions
         """
         queryset = self.get_queryset(request.user.id)
-        paginator = LimitOffsetPagination()
+        paginator = DefaultCursorPagination()
         paginator_response = paginator.paginate_queryset(queryset, request)
         serializer = QuestionnaireDetailSerializer(paginator_response, many=True)
-        return Response({
-            'detail': serializer.data,
-            'limit': paginator.limit,
-            'offset': paginator.offset,
-            'total': paginator.count
-        }, status=HTTP_200_OK)
+        return paginator.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
         """ Creates a Questionnaire
@@ -97,7 +92,7 @@ class QuestionnaireDetailApi(APIView):
         """
         questionnaire_obj = self.get_object(request.user.id, qid)
         questionnaire_obj.delete()
-        return Response({'detail': {}}, status=HTTP_200_OK)
+        return Response({'detail': 'Success deleted the resource.'}, status=HTTP_200_OK)
 
 
 class QuestionnaireSharedApi(APIView):

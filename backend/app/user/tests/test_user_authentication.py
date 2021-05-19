@@ -82,8 +82,8 @@ class PrivateUserApiTests(TestCase):
         self.client.force_authenticate(self.user)
         res = self.client.get(USER_DETAILS_URL)
 
-        self.assertEquals(res.data['email'], self.user.email)
-        self.assertEquals(res.data['name'], self.user.name)
+        self.assertEquals(res.data['detail']['email'], self.user.email)
+        self.assertEquals(res.data['detail']['name'], self.user.name)
 
     def test_unauthenticated_user_details(self):
         """Test fetch user details without authentication
