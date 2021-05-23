@@ -19,6 +19,7 @@ django-filter = "*"
 psycopg2-binary = "*"
 djangorestframework-simplejwt = "*"
 django-dotenv = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.9"
