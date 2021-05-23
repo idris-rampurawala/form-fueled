@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-12 mx-auto">
+      <div class="card rounded-lg mt-4" *ngFor="let uForm of apiData">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col">
+              <div class="form-created-at text-muted">Created {{uForm.created_at | humanizeDate}}</div>
+              <h4 class="form-title mt-2"> {{uForm.name}}</h4>
+              <div class="form-desc text-muted">{{uForm.description}}</div>
+            </div>
+            <div class="col-2">
+              <a class="text-dark" href="#">
+                <small>View</small>
+              </a>
+              <span class="px-1">
+                |
+              </span>
+              <a class="text-danger" (click)="deletForm(uForm.id)">
+                <small>Delete</small>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

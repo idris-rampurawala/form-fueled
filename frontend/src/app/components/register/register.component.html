@@ -1,0 +1,87 @@
+<main class="main d-flex align-items-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title mb-5">Register</h3>
+            <div *ngFor="let alert of alertMsgs">
+              <alert type="danger" [dismissible]="true">
+                <strong>{{alert.key}}</strong> {{alert.value}}
+              </alert>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 px-0"
+                [ngClass]="{'was-validated': (registerFormGroup.touched && registerFormGroup.dirty)}">
+                <form class="form-horizontal" [formGroup]="registerFormGroup">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <input type="text" class="form-control" autofocus autocomplete="name" [formControl]="nameCtrl"
+                        placeholder="Full Name" minlength="1" maxlength="200" required>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="invalid-feedback" [ngStyle]="{'display':'block'}"
+                        *ngIf="(nameCtrl.invalid && nameCtrl.touched && nameCtrl.dirty)">
+                        Please enter a valid name.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <input type="email" class="form-control" autofocus autocomplete="email" [formControl]="emailCtrl"
+                        placeholder="Email" minlength="5" maxlength="100" required>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="invalid-feedback" [ngStyle]="{'display':'block'}"
+                        *ngIf="(emailCtrl.invalid && emailCtrl.touched && emailCtrl.dirty)">
+                        Please enter a valid email.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <input type="password" class="form-control" autocomplete="current-password"
+                        [formControl]="passwordCtrl" placeholder="Password" minlength="5" maxlength="20" required>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="invalid-feedback" [ngStyle]="{'display':'block'}"
+                        *ngIf="(passwordCtrl.invalid && passwordCtrl.touched && passwordCtrl.dirty)">
+                        Please enter a password with minimum 5 characters in length.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <input type="password" class="form-control" autocomplete="current-password"
+                        [formControl]="repeatPasswordCtrl" placeholder="Repeat Password" minlength="5" maxlength="20"
+                        required>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="invalid-feedback" [ngStyle]="{'display':'block'}"
+                        *ngIf="(repeatPasswordCtrl.invalid && repeatPasswordCtrl.touched && repeatPasswordCtrl.dirty)">
+                        Passwords do not match.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-0">
+                    <div class="col-sm-6">
+                      <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill" [disabled]="submitted"
+                        (click)="onSubmit()">
+                        <span *ngIf="submitted" class="spinner-border spinner-border-sm" role="status"
+                          aria-hidden="true"></span>
+                        Register</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          Aready have an account? Login
+          <a routerLink="/login" class="">here</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

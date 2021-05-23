@@ -1,0 +1,28 @@
+<nav class="navbar fixed-top navbar-light text-light">
+  <div class="navbar-header">
+    Fom Fueled
+  </div>
+  <!-- <ul class="nav navbar-nav list-group-horizontal mr-auto ml-2">
+    <li class="px-1">
+      <a class="nav-link" routerLink="/home" routerLinkActive="active">
+        Home
+      </a>
+    </li>
+    <li class="px-1">
+      <a class="nav-link" routerLink="/forms" routerLinkActive="active">Forms</a>
+    </li>
+  </ul> -->
+  <ul class="nav navbar-nav navbar-right">
+    <li>
+      <button type="submit" class="btn btn-outline-dark bg-light border-0 px-4 py-2 rounded-pill" [disabled]="submitted"
+        (click)="logout()">
+        <span *ngIf="submitted" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Logout
+      </button>
+    </li>
+  </ul>
+</nav>
+<main class="content-area">
+  <router-outlet>
+  </router-outlet>
+</main>

@@ -1,0 +1,58 @@
+<main class="main d-flex align-items-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title mb-5">Login</h3>
+            <alert class="small" *ngIf="showAlert" [type]="alertType">{{ alertMsg }}</alert>
+            <div class="row">
+              <div class="col-sm-12 px-0"
+                [ngClass]="{'was-validated': (loginFormGroup.touched && loginFormGroup.dirty)}">
+                <form class="form-horizontal" [formGroup]="loginFormGroup">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <input type="email" class="form-control" autofocus autocomplete="email" [formControl]="emailCtrl"
+                        placeholder="Email Address" minlength="5" maxlength="100" required>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="invalid-feedback" [ngStyle]="{'display':'block'}"
+                        *ngIf="(emailCtrl.invalid && emailCtrl.touched && emailCtrl.dirty)">
+                        Please enter a valid email.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <input type="password" class="form-control" autocomplete="current-password"
+                        [formControl]="passwordCtrl" placeholder="Password" minlength="5" maxlength="20" required>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="invalid-feedback" [ngStyle]="{'display':'block'}"
+                        *ngIf="(passwordCtrl.invalid && passwordCtrl.touched && passwordCtrl.dirty)">
+                        Please enter a password with minimum 5 characters in length.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row mx-0">
+                    <div class="col-sm-6">
+                      <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill" [disabled]="submitted"
+                        (click)="onSubmit()">
+                        <span *ngIf="submitted" class="spinner-border spinner-border-sm" role="status"
+                          aria-hidden="true"></span>
+                        Login</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          Need an account? Register
+          <a routerLink="/register" class="">here</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

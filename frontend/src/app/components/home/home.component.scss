@@ -1,0 +1,10 @@
+@import "~src/styles";
+$navbar-height: 4rem;
+.navbar {
+  height: $navbar-height;
+  background-color: $brand-color;
+}
+main {
+  margin-top: $navbar-height;
+  background-color: #ccd2dd;
+}
