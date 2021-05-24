@@ -28,6 +28,11 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
+        path: 'responses',
+        loadChildren: () => import('./components/form-responses/form-responses.module').then(m => m.FormResponsesModule),
+        canActivate: [AuthGuard]
+      },
+      {
         path: '',
         redirectTo: 'forms',
         pathMatch: 'full'

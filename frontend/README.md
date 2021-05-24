@@ -1,27 +1,91 @@
-# Frontend
+# Form-Fueled Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.13.
+This project is a Angular front-end for Form-fueled application.
 
-## Development server
+## Table of Contents
+  - [Installation](#installation)
+    - [Prerequisites](#prerequisites)
+    - [Clone repo](#clone-repo)
+  - [VS Code setup](#vs-code-setup)
+  - [Usage](#usage)
+  - [Updating Packages](#updating-packages)
+  - [Build](#build)
+  - [Pre Checks](#pre-checks)
+  - [Contributing](#contributing)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Installation
 
-## Code scaffolding
+### Prerequisites
+- Install node v16 or higher
+- Install npm v7 or higher (will be preinstalled with node)
+- Install [Angular CLI](https://github.com/angular/angular-cli) version 11.2.13 or higher
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Clone repo
+
+``` bash
+# clone the repo
+$ git clone <github-repo-path>
+
+# move into project frontend directory
+$ cd form-fueled/frontend
+
+# install app's dependencies
+$ npm install -d
+# -d for dev dependencies
+```
+
+## VS Code setup
+VS Code ships wih pre-configured js/ts language support by default
+- Extension to support linting (this helps to avoid `ng lint` errors later on)
+  - [TS Lint](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin)
+  - [SCSS Formatter](https://marketplace.visualstudio.com/items?itemName=sibiraj-s.vscode-scss-formatter)
+  - [Angular Snippets](https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2&wt.mc_id=angularessentials-github-jopapa) `Optional`
+  - [Angular Language Service](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template) `Optional`
+  - [Document This](https://github.com/joelday/vscode-docthis) `Optional`
+- To format the code `Alt+Shift+f`
+
+## Usage
+
+``` bash
+# serve with hot reload at localhost:4200.
+$ ng serve -o
+```
+
+## Updating Packages
+
+- To update the packages for minor versions
+```bash
+$ npm update
+# Optionally can pass package names
+```
+- To sync / update the packages based on `package-lock.json` (or before a release)
+```bash
+$ npm ci
+# This will only sync your local npm_modules folder based on package-lock.json. 
+# It will not update / upgrade any packages directly.
+```
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+There are 2 environments set up
 
-## Running unit tests
+- Local
+``` bash
+# build for local env
+$ ng build
+```
+- Prod
+``` bash
+# build for prod env
+$ ng build --prod
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Pre Checks
+- Before making a commit or PR, please lint your code changes via `ng lint` command and `resolve errors` if any
+- Remove `comments` if unnecessary
+- Avoid `console.log` in your code commits
+- Try to format the file before making a commit
 
-## Running end-to-end tests
+## Contributing
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Please read through Angular's [style guidelines](https://angular.io/guide/styleguide)

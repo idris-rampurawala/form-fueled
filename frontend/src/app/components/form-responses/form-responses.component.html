@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-12 mx-auto mb-5" *ngFor="let uForm of apiData">
+      <div class="card form-description text-light rounded-lg mt-2">
+        <div class="card-body row mx-0 p-0 align-items-center">
+          <div class="col">{{uForm.name}}</div>
+          <div class="col text-right">Added {{uForm.created_at | humanizeDate}}</div>
+        </div>
+      </div>
+      <ng-container *ngIf="uForm.responses.length>0; else noResponseBlock">
+        <div class="card rounded-lg mt-2" *ngFor="let response of uForm.responses">
+          <div class="card-body py-4">
+            <div class="col-12">
+              <strong>Email:</strong> {{response.respondent_email}}
+            </div>
+            <div class="col-12 mt-3" *ngFor="let question of response.questions; let i=index">
+              <div class="">
+                <strong>{{i+1}}. {{question.text}}</strong>
+              </div>
+              <div *ngIf="question.answers.length <=1; else multiAnswersBlock">
+                <div class="">{{question.answers[0]}}</div>
+              </div>
+              <ng-template #multiAnswersBlock class="">
+                <ul *ngFor="let answer of question.answers">
+                  <li>{{answer}}</li>
+                </ul>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <!-- no responses block -->
+      <ng-template #noResponseBlock>
+        <div class="card rounded-lg mt-2">
+          <div class="card-body py-4">
+            <div class="col-12">
+              No responses received yet.
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <!-- no data -->
+  <div class="row text-center mt-4">
+    <div class="col" *ngIf="!apiData.length">
+      No data found.
+    </div>
+  </div>
+</div>

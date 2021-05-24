@@ -1,10 +1,13 @@
 @import "~src/styles";
+
 $navbar-height: 4rem;
+$bg-color: #ccd2dd;
 .navbar {
   height: $navbar-height;
   background-color: $brand-color;
 }
 main {
   margin-top: $navbar-height;
-  background-color: #ccd2dd;
+  background-color: $bg-color;
+  min-height: calc(100vh - #{$navbar-height});
 }

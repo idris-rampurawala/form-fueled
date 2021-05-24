@@ -26,6 +26,12 @@
       </div>
     </div>
   </div>
+  <!-- no data -->
+  <div class="row text-center mt-4">
+    <div class="col" *ngIf="!apiData.length">
+      No data found.
+    </div>
+  </div>
 </div>
 
 <ng-template #deleteConfirmationModal>
