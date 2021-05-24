@@ -15,6 +15,6 @@ export class UserFormsService {
     return this.http.get<any>(`${environment.apiUrl}/questionnaires/${params}`);
   }
   public deleteForm(id: string): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/questionnaires/${id}`);
+    return this.http.delete<any>(`${environment.apiUrl}/questionnaires/${id}/`);
   }
 }

@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 import { UserFormsComponent } from './user-forms.component';
 import { UserFormsRoutingModule } from './user-forms-routing.module';
@@ -19,6 +20,7 @@ import { HumanizeDatePipeModule } from '../../pipes/humanize-date/humanize-date-
     UserFormsRoutingModule,
     ButtonsModule.forRoot(),
     AlertModule.forRoot(),
+    ModalModule.forRoot(),
     HumanizeDatePipeModule
   ],
   declarations: [

@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ToastrModule } from 'ngx-toastr';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -35,6 +36,7 @@ export function tokenGetter(): string {
     BrowserAnimationsModule,
     ButtonsModule.forRoot(),
     CollapseModule.forRoot(),
+    ToastrModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     JwtModule.forRoot({
