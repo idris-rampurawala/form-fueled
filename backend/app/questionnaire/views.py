@@ -135,7 +135,7 @@ class QuestionnaireResponsesApi(APIView):
                 Prefetch('responses', queryset=QuestionnaireRespondent.objects.prefetch_related(
                     Prefetch(
                         'respondent', queryset=QResponse.objects.select_related('question').all())
-                ))).get(pk=qid)
+                ))).get(pk=qid, user_id=user_id)
             return questionnaire_obj
         except Questionnaire.DoesNotExist:
             raise NotFound
@@ -146,3 +146,25 @@ class QuestionnaireResponsesApi(APIView):
         questionnaire_obj = self.get_object(request.user.id, qid)
         serializer = QuestionnaireResponsesSerializer(questionnaire_obj, many=False)
         return Response({'detail': serializer.data}, status=HTTP_200_OK)
+
+
+class QuestionnaireResponsesListApi(APIView):
+    http_method_names = ['get']
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self, user_id):
+        return Questionnaire.objects.prefetch_related(
+            Prefetch('responses', queryset=QuestionnaireRespondent.objects.prefetch_related(
+                Prefetch(
+                    'respondent', queryset=QResponse.objects.select_related('question').all())
+            ))).filter(user_id=user_id)
+
+    def get(self, request):
+        """ API to fetch all questionnaires alongwith their responses
+        """
+        queryset = self.get_queryset(request.user.id)
+        paginator = DefaultCursorPagination()
+        paginator_response = paginator.paginate_queryset(queryset, request)
+        serializer = QuestionnaireResponsesSerializer(paginator_response, many=True)
+        return paginator.get_paginated_response(serializer.data)

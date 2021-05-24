@@ -8,5 +8,6 @@ urlpatterns = [
     path('shared/<uuid:qid>/', views.QuestionnaireSharedApi.as_view(), name='shared'),
     path('<uuid:qid>/responses/', views.QuestionnaireResponsesApi.as_view(), name='response'),
     path('<uuid:qid>/', views.QuestionnaireDetailApi.as_view(), name='detail'),
+    path('responses/', views.QuestionnaireResponsesListApi.as_view(), name='all-responses'),
     path('', views.QuestionnaireApi.as_view(), name='list'),
 ]
