@@ -10,7 +10,7 @@
               <div class="form-desc text-muted">{{uForm.description}}</div>
             </div>
             <div class="col-2">
-              <a class="btn p-0 text-dark" href="#">
+              <a class="btn p-0 text-dark" [routerLink]="['/shared', uForm.id]" target="_blank">
                 <small>View</small>
               </a>
               <span class="px-1">

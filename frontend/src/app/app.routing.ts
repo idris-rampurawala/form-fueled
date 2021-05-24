@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./components/register/register.module').then(m => m.RegisterModule),
   },
   {
+    path: 'shared/:token',
+    loadChildren: () => import('./components/form-shared/form-shared.module').then(m => m.FormSharedModule),
+  },
+  {
     path: '',
     component: HomeComponent,
     resolve: {

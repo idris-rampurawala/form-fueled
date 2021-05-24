@@ -7,9 +7,10 @@
             <h3 class="card-title mb-5">Login</h3>
             <alert class="small" *ngIf="showAlert" [type]="alertType">{{ alertMsg }}</alert>
             <div class="row">
-              <div class="col-sm-12 px-0"
-                [ngClass]="{'was-validated': (loginFormGroup.touched && loginFormGroup.dirty)}">
-                <form class="form-horizontal" [formGroup]="loginFormGroup">
+              <div class="col-sm-12 px-0">
+                <form class="form-horizontal" [formGroup]="loginFormGroup"
+                  [ngClass]="{'was-validated': (loginFormGroup.touched || loginFormGroup.dirty)}"
+                  (ngSubmit)="onSubmit()">
                   <div class="form-group">
                     <div class="col-sm-12">
                       <input type="email" class="form-control" autofocus autocomplete="email" [formControl]="emailCtrl"
@@ -17,7 +18,7 @@
                     </div>
                     <div class="col-sm-12">
                       <div class="invalid-feedback" [ngStyle]="{'display':'block'}"
-                        *ngIf="(emailCtrl.invalid && emailCtrl.touched && emailCtrl.dirty)">
+                        *ngIf="(emailCtrl.invalid && (emailCtrl.touched || emailCtrl.dirty))">
                         Please enter a valid email.
                       </div>
                     </div>
@@ -29,15 +30,14 @@
                     </div>
                     <div class="col-sm-12">
                       <div class="invalid-feedback" [ngStyle]="{'display':'block'}"
-                        *ngIf="(passwordCtrl.invalid && passwordCtrl.touched && passwordCtrl.dirty)">
+                        *ngIf="(passwordCtrl.invalid && (passwordCtrl.touched || passwordCtrl.dirty))">
                         Please enter a password with minimum 5 characters in length.
                       </div>
                     </div>
                   </div>
                   <div class="form-group row mx-0">
                     <div class="col-sm-6">
-                      <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill" [disabled]="submitted"
-                        (click)="onSubmit()">
+                      <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill" [disabled]="submitted">
                         <span *ngIf="submitted" class="spinner-border spinner-border-sm" role="status"
                           aria-hidden="true"></span>
                         Login</button>

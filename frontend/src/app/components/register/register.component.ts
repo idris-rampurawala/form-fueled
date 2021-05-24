@@ -57,6 +57,7 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     this.alertMsgs = [];
+    this.registerFormGroup.markAllAsTouched();
     if (this.registerFormGroup.invalid) {
       this.submitted = false;
       return;

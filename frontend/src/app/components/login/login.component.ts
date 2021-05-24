@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+    this.loginFormGroup.markAllAsTouched();
     if (this.loginFormGroup.invalid) {
       this.submitted = false;
       return;

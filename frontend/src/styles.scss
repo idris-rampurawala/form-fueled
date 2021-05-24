@@ -1,7 +1,12 @@
 @import "~ngx-toastr/toastr";
 
+$brand-color: #9eafcf;
+$bg-color: #ccd2dd;
+
 body {
   font-family: "Roboto", sans-serif;
 }
 
-$brand-color: #9eafcf;
+main {
+  background-color: $bg-color;
+}

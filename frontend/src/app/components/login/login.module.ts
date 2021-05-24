@@ -6,7 +6,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { LoginComponent } from './login.component';
-import { LoginRoutingModule } from './login-routing.module';
+import { LoginRoutingModule } from './login.routing';
 
 
 @NgModule({

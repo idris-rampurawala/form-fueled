@@ -14,7 +14,7 @@ import { UserResolver } from './resolvers/user.resolver';
 import { HomeComponent } from '../app/components/home/home.component';
 
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 
 import { environment } from '../environments/environment';

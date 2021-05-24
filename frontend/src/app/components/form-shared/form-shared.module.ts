@@ -5,8 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { AlertModule } from 'ngx-bootstrap/alert';
 
-import { RegisterComponent } from './register.component';
-import { RegisterRoutingModule } from './register.routing';
+import { FormSharedComponent } from './form-shared.component';
+import { FormSharedRoutingModule } from './form-shared.routing';
+import { FormSharedService } from './form-shared.service';
+
 
 
 @NgModule({
@@ -14,13 +16,13 @@ import { RegisterRoutingModule } from './register.routing';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RegisterRoutingModule,
+    FormSharedRoutingModule,
     ButtonsModule.forRoot(),
-    AlertModule.forRoot(),
+    AlertModule.forRoot()
   ],
   declarations: [
-    RegisterComponent
+    FormSharedComponent
   ],
-  providers: []
+  providers: [FormSharedService]
 })
-export class RegisterModule { }
+export class FormSharedModule { }

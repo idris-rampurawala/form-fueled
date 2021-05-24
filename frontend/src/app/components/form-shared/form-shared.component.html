@@ -1,0 +1,101 @@
+<main>
+  <div class="container" *ngIf="!responseCaptured">
+    <form class="form-horizontal" [formGroup]="responseFormGroup" (ngSubmit)="onSubmit()"
+      [ngClass]="{'was-validated': (responseFormGroup.touched || responseFormGroup.dirty)}">
+      <div class="row">
+        <div class="col-lg-8 col-md-12 mx-auto mt-5 mb-5">
+          <div class="card rounded-lg mb-5">
+            <div class="card-body">
+              <h3 class="col-12">{{apiData.name}}</h3>
+              <div class="col-12 text-muted">{{apiData.description}}</div>
+            </div>
+          </div>
+          <div class="card rounded-lg mb-5" *ngFor="let question of apiData.questions; let qIndex=index">
+            <div class="card-body py-4">
+              <h4 class="col-12 mb-4">
+                {{question.text}}
+                <span class="text-danger">*</span>
+              </h4>
+              <div class="col-12 mt-3" [ngSwitch]="question.qtype" [formGroup]="questionsFormArray.controls[qIndex]">
+                <!-- MCMS -->
+                <div *ngSwitchCase="questionTypes.MCSS">
+                  <div class="form-group mb-0 ml-4" *ngFor="let option of question.options; let optionIndex=index">
+                    <input class="form-check-input" formControlName="answer" type="radio" [value]="option.text"
+                      required>
+                    <label class="form-control-label text-muted" [ngClass]="{'text-danger': (
+                      questionsFormArray.controls[qIndex].controls['answer'].invalid && 
+                      (questionsFormArray.controls[qIndex].controls['answer'].touched || 
+                      questionsFormArray.controls[qIndex].controls['answer'].dirty))}">
+                      {{option.text}}
+                    </label>
+                  </div>
+                  <div class="invalid-feedback" [ngStyle]="{'display':'block'}" *ngIf="(questionsFormArray.controls[qIndex].controls['answer'].invalid && 
+                    (questionsFormArray.controls[qIndex].controls['answer'].touched || 
+                    questionsFormArray.controls[qIndex].controls['answer'].dirty))">
+                    Please provide a response.
+                  </div>
+                </div>
+                <!-- TEXT -->
+                <div *ngSwitchDefault>
+                  <div class="form-group">
+                    <textarea class="form-control" formControlName="answer" rows="3" placeholder="Answer"
+                      required></textarea>
+                    <div class="invalid-feedback" [ngStyle]="{'display':'block'}" *ngIf="(questionsFormArray.controls[qIndex].controls['answer'].invalid && 
+                    (questionsFormArray.controls[qIndex].controls['answer'].touched || 
+                    questionsFormArray.controls[qIndex].controls['answer'].dirty))">
+                      Please provide a response.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- respondent email -->
+          <div class="card rounded-lg">
+            <div class="card-body">
+              <h4 class="col-12">Email Address<span class="text-danger">*</span></h4>
+              <div class="col-12 text-muted mb-2">
+                In order to save your answers, we need your email.
+              </div>
+              <div class="col-12 form-group">
+                <input type="email" class="form-control" [formControl]="respondentEmailCtrl"
+                  placeholder="Your Email Address" required>
+                <div class="invalid-feedback" [ngStyle]="{'display':'block'}"
+                  *ngIf="respondentEmailCtrl.invalid && (respondentEmailCtrl.touched || respondentEmailCtrl.dirty)">
+                  Please enter a valid email.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-lg-8 col-md-12 mx-auto mb-5 text-center">
+          <div class="col-12" *ngFor="let alert of alertMsgs">
+            <alert type="danger" [dismissible]="true">
+              <strong>{{alert.key}}:</strong> {{alert.value}}
+            </alert>
+          </div>
+          <div class="col-12 form-group">
+            <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill" [disabled]="submitted">
+              <span *ngIf="submitted" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- response captued -->
+  <div class="container" *ngIf="responseCaptured">
+    <div class="row">
+      <div class="col-lg-8 col-md-12 mx-auto mt-5 mb-5 text-center">
+        <div class="card rounded-lg mb-5">
+          <div class="card-body">
+            <div class="col-12">Thank you! We have received your response.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
