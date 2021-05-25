@@ -46,7 +46,7 @@ export class FormSharedComponent implements OnInit {
       // validate token
       if ('token' in params) {
         this.token = params.token;
-        this.fetchFormResponses();
+        this.fetchFormDetails();
       } else {
         this.toastr.error('Invalid URL', 'Error');
         // route to 404
@@ -57,7 +57,7 @@ export class FormSharedComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  fetchFormResponses(): void {
+  fetchFormDetails(): void {
     this.formSharedService.getFormDetails(this.token)
       .subscribe(data => {
         this.apiData = data.detail;
@@ -67,6 +67,8 @@ export class FormSharedComponent implements OnInit {
             answer: new FormControl('', [Validators.required]),
           });
           this.questionsFormArray.push(questionCtrl);
+          // sort the options by its sequence value
+          question.options.sort((a, b) => (a.sequence > b.sequence) ? 1 : -1);
         });
       }, (error: HttpErrorResponse) => {
         console.log(error);
