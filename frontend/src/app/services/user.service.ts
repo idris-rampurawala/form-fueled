@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { environment } from './../../environments/environment';
 
 
-import { UserBase, User } from '../interfaces/user.interface';
+import { User } from '../interfaces/user.interface';
+import { BaseResponse } from '../interfaces/common.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,8 @@ export class UserService {
     this.userDetails = userDetails;
   }
 
-  getUserDetails(): Observable<UserBase> {
-    return this.http.get<UserBase>(`${environment.apiUrl}/users/detail/`);
+  getUserDetails(): Observable<BaseResponse<User>> {
+    return this.http.get<BaseResponse<User>>(`${environment.apiUrl}/users/detail/`);
   }
 
 }

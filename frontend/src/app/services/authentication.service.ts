@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment } from '../../environments/environment';
-import { UserRegisterResponse } from '../interfaces/common.interface';
+import { UserRegisterResponse, BaseResponse } from '../interfaces/common.interface';
 
 
 @Injectable({
@@ -32,8 +32,8 @@ export class AuthenticationService {
       );
   }
 
-  public register(email: string, password: string, name: string): Observable<UserRegisterResponse> {
-    return this.httpClient.post<UserRegisterResponse>(`${environment.apiUrl}/users/register/`, { email, password, name });
+  public register(email: string, password: string, name: string): Observable<BaseResponse<UserRegisterResponse>> {
+    return this.httpClient.post<BaseResponse<UserRegisterResponse>>(`${environment.apiUrl}/users/register/`, { email, password, name });
   }
 
   public logout(): void {

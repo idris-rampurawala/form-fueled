@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
       this.registerFormGroup.controls.email.value,
       this.registerFormGroup.controls.password.value,
       this.registerFormGroup.controls.name.value)
-      .subscribe((data: any) => {
+      .subscribe(data => {
         this.submitted = false;
         this.router.navigate(['login'], { queryParams: { code: 'REGISTERED', type: 'success' } });
       }, (error: HttpErrorResponse) => {

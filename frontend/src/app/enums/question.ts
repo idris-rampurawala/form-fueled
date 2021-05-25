@@ -4,6 +4,6 @@ export enum QuestionTypes {
 }
 
 export enum QuestionTypesText {
-  'Multiple Choice' = QuestionTypes.TEXT,
-  'Paragraph' = QuestionTypes.MCSS,
+  'Multiple Choice' = QuestionTypes.MCSS,
+  'Paragraph' = QuestionTypes.TEXT,
 }
