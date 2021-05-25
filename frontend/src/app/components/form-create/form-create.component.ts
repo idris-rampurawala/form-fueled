@@ -3,9 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ToastrService } from 'ngx-toastr';
-
-import { QuestionTypes } from '../../enums/question';
+import { QuestionTypes, QuestionTypesText } from '../../enums/question';
 import { FormCreateService } from './form-create.service';
 import { FormAPIResponse } from './interfaces/form-create.interface';
 import { HelperService } from 'src/app/services/helper.service';
@@ -46,13 +44,12 @@ export class FormCreateComponent implements OnInit {
 
   constructor(
     private formCreateService: FormCreateService,
-    private toastr: ToastrService,
     private helperService: HelperService
   ) { }
 
   ngOnInit(): void {
     this.addQuestion();
-    this.questionTypesOptions = this.helperService.getOptionFromEnum(this.questionTypes);
+    this.questionTypesOptions = this.helperService.getOptionFromEnum(QuestionTypesText);
   }
 
   addQuestion(): void {
