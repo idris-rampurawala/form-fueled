@@ -1,0 +1,155 @@
+<div class="container" *ngIf="!formCreated">
+  <form class="form-horizontal" [formGroup]="createFormGroup" (ngSubmit)="onSubmit()"
+    [ngClass]="{'was-validated': (createFormGroup.touched || createFormGroup.dirty)}">
+    <div class="row">
+      <div class="col-lg-8 col-md-12 mx-auto mt-5 mb-5">
+        <div class="card rounded-lg mb-5">
+          <div class="card-body">
+            <div class="col-12 form-group">
+              <input type="text" class="form-control" [formControl]="nameCtrl" placeholder="Form Name" minlength="5"
+                maxlength="100" required>
+              <div class="invalid-feedback" [ngStyle]="{'display':'block'}"
+                *ngIf="nameCtrl.invalid && (nameCtrl.touched || nameCtrl.dirty)">
+                Please enter a valid title.
+              </div>
+            </div>
+            <div class="col-12 form-group">
+              <textarea class="form-control" [formControl]="descriptionCtrl" rows="3" placeholder="Form Description"
+                minlength="5" required></textarea>
+              <div class="invalid-feedback" [ngStyle]="{'display':'block'}"
+                *ngIf="descriptionCtrl.invalid && (descriptionCtrl.touched || descriptionCtrl.dirty)">
+                Please enter a valid description.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card rounded-lg mb-5"
+          *ngFor="let question of questionsFormArray.controls; let qIndex=index; let isFirstQuestion=first; let isLastQuestion=last"
+          [formGroup]="question">
+          <div class="card-body pb-2 row mx-0">
+            <!-- question -->
+            <div class="col-lg-8 col-12">
+              <div class="form-group">
+                <input type="text" class="form-control" formControlName="text" placeholder="Question Title"
+                  minlength="5" maxlength="100" required>
+                <div class="invalid-feedback" [ngStyle]="{'display':'block'}" *ngIf="(
+                    question.controls['text'].invalid && 
+                      (question.controls['text'].touched || 
+                      question.controls['text'].dirty))">
+                  Please enter a valid question title.
+                </div>
+              </div>
+              <!-- question options -->
+              <div [ngSwitch]="question.controls['qtype'].value">
+                <!-- type MCSS -->
+                <div *ngSwitchCase="questionTypes.MCSS" class="row align-items-center mx-0">
+                  <ng-container
+                    *ngFor="let option of question.controls['options'].controls; let opIndex=index; let islastOption=last">
+                    <div class="col-1 d-flex align-items-center px-0 mb-4">
+                      <input class="form-check-input ml-0" type="radio" name="{{qIndex}}" value="{{qIndex}}">
+                    </div>
+                    <div class="col-9 px-0">
+                      <div class="form-group">
+                        <input type="text" class="form-control" [formControl]="option.controls['text']"
+                          placeholder="Answer {{opIndex+1}}" minlength="1" maxlength="255" required>
+                        <div class="invalid-feedback" [ngStyle]="{'display':'block'}" *ngIf="(
+                            question.controls['text'].invalid && 
+                              (question.controls['text'].touched || 
+                              question.controls['text'].dirty))">
+                          Please enter a valid question title.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-1 d-flex align-items-center px-2 mb-3">
+                      <button type="button" class="btn btn-link delete-icon" title="Delete option"
+                        (click)="deleteOption(question, opIndex)"
+                        [disabled]="question.controls['options'].controls.length <=1 ">
+                      </button>
+                    </div>
+                    <div class="col-1 d-flex align-items-center px-2 mb-3">
+                      <button *ngIf="islastOption" type="button" class="btn btn-link add-icon" title="Add more options"
+                        (click)="addOption(question.controls['options'].controls)"
+                        [disabled]="question.controls['options'].controls.length >= maxOptions">
+                      </button>
+                    </div>
+                  </ng-container>
+                </div>
+                <!-- type TEXT -->
+                <div *ngSwitchDefault>
+                  <small>Paragraph will go here</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- question type -->
+            <div class="col-lg-4 col-12">
+              <div class="form-group">
+                <select class="form-control" formControlName="qtype" (change)="toggleQTypeSelection($event, question)">
+                  <option *ngFor="let qTypes of questionTypesOptions" [value]="qTypes.value">{{qTypes.key}}</option>
+                </select>
+                <div class="invalid-feedback" [ngStyle]="{'display':'block'}" *ngIf="(
+                    question.controls['qtype'].invalid && 
+                      (question.controls['qtype'].touched || 
+                      question.controls['qtype'].dirty))">
+                  Please enter a valid question type.
+                </div>
+              </div>
+            </div>
+
+            <!-- delete question -->
+            <div class="col-12 text-right">
+              <button type="button" class="btn btn-link delete-icon medium" title="Delete question"
+                (click)="deleteQuestion(qIndex)" [disabled]="isFirstQuestion">
+              </button>
+            </div>
+
+            <div class="col-2 text-center offset-5 add-question-container">
+              <button *ngIf="isLastQuestion" type="button" class="btn btn-link add-icon big" title="Add question"
+                (click)="addQuestion()" [disabled]="questionsFormArray.length >= maxQuestions">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-lg-8 col-md-12 mx-auto mb-5 text-center">
+        <div class="col-12" *ngFor="let alert of alertMsgs">
+          <alert type="danger" [dismissible]="true">
+            <strong>{{alert.key}}:</strong> {{alert.value}}
+          </alert>
+        </div>
+        <div class="col-12 form-group">
+          <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill" [disabled]="submitted">
+            <span *ngIf="submitted" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- response captued -->
+<div class="container" *ngIf="formCreated">
+  <div class="row">
+    <div class="col-lg-8 col-md-12 mx-auto mt-5 mb-5">
+      <div class="card rounded-lg mb-5">
+        <div class="card-body">
+          <div class="col-12">
+            <alert type="success" [dismissible]="true">
+              Form has been created successfully.
+            </alert>
+          </div>
+          <div class="col-12 mt-2">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Share</label>
+              <div class="col-sm-10">
+                <input class="form-control" type="text" [value]="shareableURL" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

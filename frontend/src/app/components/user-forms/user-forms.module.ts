@@ -7,7 +7,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 import { UserFormsComponent } from './user-forms.component';
-import { UserFormsRoutingModule } from './user-forms-routing.module';
+import { UserFormsRoutingModule } from './user-forms.routing';
 import { UserFormsService } from './user-forms.service';
 import { HumanizeDatePipeModule } from '../../pipes/humanize-date/humanize-date-pipe.module';
 

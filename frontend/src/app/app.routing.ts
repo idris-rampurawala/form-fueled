@@ -37,6 +37,11 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
+        path: 'create',
+        loadChildren: () => import('./components/form-create/form-create.module').then(m => m.FormCreateModule),
+        canActivate: [AuthGuard]
+      },
+      {
         path: '',
         redirectTo: 'forms',
         pathMatch: 'full'
