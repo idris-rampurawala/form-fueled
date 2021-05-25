@@ -17,7 +17,7 @@ There are 2 seperate applications (check out respective folder's README for more
   - `MCSS`: A multi-choice single select wherein users can select only one of the available options
 - Restrictions (just for simplicity)
   - 100 questions per questionnaire
-  - 5 options for `MCSS` question type
+  - 5 options per `MCSS` question type
 
 
 # License
